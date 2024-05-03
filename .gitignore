@@ -1,0 +1,11 @@
+# Ignore the virtual environenment
+venv/
+
+# Ignore the __pycache__ files
+__pycache__/
+
+# Ignore the .env file because that contains environment secrets
+.env
+
+# Ignore any sqlite files
+*.db
