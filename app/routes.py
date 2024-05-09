@@ -36,13 +36,12 @@ def create_user():
 
     new_user = User(first_name = first_name, last_name = last_name, username=username, email=email, password=password)
     
-    return new_user.to_dict()
+    return new_user.to_dict(), 201
 
 @app.route('/token')
 @basic_auth.login_required
 def get_token():
     user = basic_auth.current_user()
-    # return {'token': user.get_token(), 'userId': user.id}
     return user.get_token()
 
 @app.route('/users/me')

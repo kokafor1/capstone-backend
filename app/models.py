@@ -46,11 +46,13 @@ class User(db.Model):
         }
 
     def get_token(self):
+        now = datetime.now(timezone.utc)
+        if self.token and self.token_expiration > now + timedelta(minutes=1):
+            return {"token": self.token, "tokenExpiration": self.token_expiration}
         self.token = secrets.token_hex(16)
+        self.token_expiration = now + timedelta(hours=1)
         self.save()
-        return {
-            "token": self.token 
-            }
+        return {"token": self.token, "tokenExpiration": self.token_expiration}
 
 class DogFact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
